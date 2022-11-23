@@ -167,10 +167,6 @@ namespace ____
                                         DatorEss = true;
                                         break;
                                     }
-                                    else
-                                    {
-                                        break;
-                                    }
                                 }
                                 if (DatornsSumma > 21)
                                 {
@@ -223,10 +219,6 @@ namespace ____
                                         DinaKort[i] = 1;
                                         DinSumma = DinaKort.Sum();
                                         DinEss = true;
-                                        break;
-                                    }
-                                    else
-                                    {
                                         break;
                                     }
                                 }
