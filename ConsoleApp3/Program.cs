@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ____
 {
@@ -105,7 +105,7 @@ namespace ____
                     DragnaKort[1] = DatorKortID;
                     DatornsKort[0] = värde[DatorKortID];
                     Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})"); // {DragnaKort[0]}
-                    Console.WriteLine($"- Datorn Drog: {namn[DatorKortID]} ({värde[DatorKortID]})\n"); //{namn[DatorKortID]} ({värde[DatorKortID]}) {DragnaKort[1]}
+                    Console.WriteLine($"- Datorn Drog: ?\n"); //{namn[DatorKortID]} ({värde[DatorKortID]}) {DragnaKort[1]}
 
                     // Drar ditt andra kort
                     DittKortID = slump.Next(0, 52);
@@ -134,7 +134,7 @@ namespace ____
                     DatornsKort[1] = värde[DatorKortID];
 
                     Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})"); // {DragnaKort[2]}
-                    Console.WriteLine($"- Datorn Drog: ?\n"); // {DragnaKort[3]}
+                    Console.WriteLine($"- Datorn Drog: {namn[DatorKortID]} ({värde[DatorKortID]})\n"); // {DragnaKort[3]}
 
                     int DinSumma = DinaKort.Sum();
                     int DatornsSumma = DatornsKort.Sum();
@@ -143,6 +143,8 @@ namespace ____
                     int AntalKortDragna = 4;
                     int AntalDatorKort = 2;
                     int AntalDinaKort = 2;
+                    bool DatorEss = false;
+                    bool DinEss = false;
 
                     if (DatornsSumma == 21)
                     {
@@ -158,10 +160,15 @@ namespace ____
                             case > 21:
                                 for (int i = 0; i < DatornsKort.Length; i++)
                                 {
-                                    if (DatornsKort[i] == 11)
+                                    if (DatornsKort[i] == 11 && DatorEss == false)
                                     {
                                         DatornsKort[i] = 1;
                                         DatornsSumma = DatornsKort.Sum();
+                                        DatorEss = true;
+                                        break;
+                                    }
+                                    else
+                                    {
                                         break;
                                     }
                                 }
@@ -211,10 +218,15 @@ namespace ____
                             case > 21:
                                 for (int i = 0; i < DinaKort.Length; i++)
                                 {
-                                    if (DinaKort[i] == 11)
+                                    if (DinaKort[i] == 11 && DinEss == false)
                                     {
                                         DinaKort[i] = 1;
                                         DinSumma = DinaKort.Sum();
+                                        DinEss = true;
+                                        break;
+                                    }
+                                    else
+                                    {
                                         break;
                                     }
                                 }
