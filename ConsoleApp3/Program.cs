@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 
 namespace ____
 {
@@ -58,305 +59,335 @@ namespace ____
             // Variabler för dragna kort
             int DittKortID = 0;
             int DatorKortID = 0;
+            int DragetKortID = 0;
+            string[] Toggle = { "Du", "Datorn" };
+            int ToggleVärde = ( 0 ^ 1 );
 
             // Skapar en lista för alla dragna kort
             int[] DragnaKort = new int[52];
             int[] DinaKort = new int[26];
             int[] DatornsKort = new int[26];
-
-            while(Avslut == false)
+            while (Avslut == false)
             {
-                Console.WriteLine("\nVälkommen till Blackjack!");
-                Console.WriteLine("\n1. Spela spelet");
-                Console.WriteLine("2. Spelets regler");
-                Console.WriteLine("3. Kolla de senaste vinnarna");
-                Console.WriteLine("4. Avsluta programmet");
-                Console.Write("\nSkriv här: "); int Val = int.Parse(Console.ReadLine());
-
-                switch (Val)
+                try
                 {
-                    case 1:
-                        Spel = true;
-                        break;
-                    case 2:
-                        Regler = true;
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        Avslut = true;
-                        break;
-                    default:
-                        break;
-                }
+                    Console.Clear();
+                    Console.WriteLine("\nVälkommen till Blackjack!");
+                    Console.WriteLine("\n1. Spela spelet");
+                    Console.WriteLine("2. Spelets regler");
+                    Console.WriteLine("3. Kolla de senaste vinnarna");
+                    Console.WriteLine("4. Avsluta programmet");
+                    Console.Write("\nSkriv här: "); int Val = int.Parse(Console.ReadLine());
 
-                if (Regler)
-                {
-                    Console.WriteLine("\nRegler:");
-                    Console.WriteLine("- I Blackjack är målet att nå 21 poäng genom att dra kort från en kortlek.");
-                    Console.WriteLine("- Man drar automatiskt två kort och får sedan välja om man vill fortsätta dra kort eller inte.");
-                    Console.WriteLine("- Hamnar man över 21 poäng förlorar man automatiskt.");
-                    Console.WriteLine("\nÖvriga regler:");
-                    Console.WriteLine("- Ess är värda 11 men om du överskrider 21 med ett ess på hand blir det esset värt 1. Detta kan endast ske ett ess.");
-
-                    Console.Write("\nSkriv här när du förstår: "); Console.ReadLine();
-                    Regler = false;
-                }
-
-                while (Spel == true)
-                {
-                    if (Igen == true)
+                    switch (Val)
                     {
-                        Console.Write("Vill du köra igen? (j/n): "); char[] val = Console.ReadLine().ToLower().ToCharArray();
-
-                        if (val[0] == 'j')
-                        {
-                            Igen = false;
-                            Array.Clear(DragnaKort);
-                            Array.Clear(DinaKort);
-                            Array.Clear(DatornsKort);
-                        }
-                        else
-                        {
-                            Spel = false;
-                        }
-                        Console.WriteLine();
+                        case 1:
+                            Spel = true;
+                            break;
+                        case 2:
+                            Regler = true;
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            Avslut = true;
+                            break;
+                        default:
+                            break;
                     }
 
-                    while (Igen == false)
+                    if (Regler)
                     {
-                        Console.WriteLine();
+                        Console.Clear();
+                        Console.WriteLine("\nRegler:");
+                        Console.WriteLine("\n- I Blackjack är målet att nå 21 poäng genom att dra kort från en kortlek.");
+                        Console.WriteLine("- Man drar automatiskt två kort och får sedan välja om man vill fortsätta dra kort eller inte.");
+                        Console.WriteLine("- Hamnar man över 21 poäng förlorar man automatiskt.");
+                        Console.WriteLine("\nÖvriga regler:");
+                        Console.WriteLine("\n- Ess är värda 11 men om du överskrider 21 med ett ess på hand blir det esset värt 1. Detta kan endast ske ett ess.");
 
-                        // Drar ditt första kort
-                        DittKortID = slump.Next(0, 52);
+                        Console.Write("\nSkriv här när du har läst klart: "); Console.ReadLine();
+                        Regler = false;
+                    }
 
-                        // Lägger till kortet i listan för dragna kort
-                        DragnaKort[0] = DittKortID;
-                        DinaKort[0] = värde[DittKortID];
-
-                        // Drar datorns första kort
-                        DatorKortID = slump.Next(0, 52);
-
-                        // Kollar listan för dragna kort
-                        while (DragnaKort.Contains(DatorKortID))
+                    while (Spel == true)
+                    {
+                        if (Igen == true)
                         {
-                            DatorKortID = slump.Next(0, 52);
-                        }
+                            Console.Write("Vill du köra igen? (j/n): "); char[] val = Console.ReadLine().ToLower().ToCharArray();
 
-                        // Bekräftar Kortet
-                        DragnaKort[1] = DatorKortID;
-                        DatornsKort[0] = värde[DatorKortID];
-                        Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})"); // {DragnaKort[0]}
-                        Console.WriteLine($"- Datorn Drog: ?\n"); //{namn[DatorKortID]} ({värde[DatorKortID]}) {DragnaKort[1]}
-
-                        // Drar ditt andra kort
-                        DittKortID = slump.Next(0, 52);
-
-                        // Kollar listan för dragna kort
-                        while (DragnaKort.Contains(DittKortID))
-                        {
-                            DittKortID = slump.Next(0, 52);
-                        }
-
-                        // Bekräftar Korter
-                        DragnaKort[2] = DittKortID;
-                        DinaKort[1] = värde[DittKortID];
-
-                        // Drar Datorns andra kort
-                        DatorKortID = slump.Next(0, 52);
-
-                        // Kollar listan för dragna kort
-                        while (DragnaKort.Contains(DatorKortID))
-                        {
-                            DatorKortID = slump.Next(0, 52);
-                        }
-
-                        // Bekräftar Kortet
-                        DragnaKort[3] = DatorKortID;
-                        DatornsKort[1] = värde[DatorKortID];
-
-                        Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})"); // {DragnaKort[2]}
-                        Console.WriteLine($"- Datorn Drog: {namn[DatorKortID]} ({värde[DatorKortID]})\n"); // {DragnaKort[3]}
-
-                        int DinSumma = DinaKort.Sum();
-                        int DatornsSumma = DatornsKort.Sum();
-                        bool DatorLoop = true;
-                        bool DinLoop = true;
-                        int AntalKortDragna = 4;
-                        int AntalDatorKort = 2;
-                        int AntalDinaKort = 2;
-                        bool DatorEss = false;
-                        bool DinEss = false;
-
-                        if (DatornsSumma == 21)
-                        {
-                            Console.WriteLine("Datorn fick 21! Du förlorade!\n");
-                            Igen = true;
-                            break;
-                        }
-
-                        while (DatorLoop == true)
-                        {
-                            switch (DatornsSumma)
+                            if (val[0] == 'j')
                             {
-                                case > 21:
-                                    for (int i = 0; i < DatornsKort.Length; i++)
-                                    {
-                                        if (DatornsKort[i] == 11 && DatorEss == false)
-                                        {
-                                            DatornsKort[i] = 1;
-                                            DatornsSumma = DatornsKort.Sum();
-                                            DatorEss = true;
-                                            break;
-                                        }
-                                    }
-                                    if (DatornsSumma > 21)
-                                    {
-                                        DatorLoop = false;
-                                    }
-                                    break;
-                                case 21:
-                                    DatorLoop = false;
-                                    break;
-                                case < 17:
-                                    while (DatornsSumma < 17)
-                                    {
-                                        // Drar datorns nästa  kort
-                                        DatorKortID = slump.Next(0, 52);
-
-                                        // Kollar listan med dragna kort
-                                        while (DragnaKort.Contains(DatorKortID))
-                                        {
-                                            DatorKortID = slump.Next(0, 52);
-                                        }
-
-                                        // Bekräftar kortet
-                                        DragnaKort[AntalKortDragna] = DatorKortID;
-                                        DatornsKort[AntalDatorKort] = värde[DatorKortID];
-
-                                        // Summerar
-                                        DatornsSumma = DatornsKort.Sum();
-
-                                        AntalKortDragna++;
-                                        AntalDatorKort++;
-                                    }
-                                    break;
-                                default:
-                                    DatorLoop = false;
-                                    break;
+                                Igen = false;
+                                Array.Clear(DragnaKort);
+                                Array.Clear(DinaKort);
+                                Array.Clear(DatornsKort);
                             }
+                            else
+                            {
+                                Spel = false;
+                            }
+                            Console.WriteLine();
                         }
 
-                        Console.WriteLine($"Dina poäng: {DinSumma}\n");
-
-                        while (DinLoop == true)
+                        while (Igen == false)
                         {
-                            switch (DinSumma)
+                            Console.Clear();
+                            Console.WriteLine();
+
+                           // for (int i = 0; i < 4; i++)
                             {
-                                case > 21:
-                                    for (int i = 0; i < DinaKort.Length; i++)
-                                    {
-                                        if (DinaKort[i] == 11 && DinEss == false)
+                              //  DragetKortID = slump.Next(0, 52);
+                             //   DragnaKort[i] = DragetKortID;
+                              //  Console.WriteLine($"- {Toggle[ToggleVärde]} drog: {namn[DragetKortID]} ({värde[DragetKortID]})"); // {DragnaKort[0]}
+                             //   ToggleVärde ^= ToggleVärde;
+                            }
+                            Console.Read();
+                            // Drar ditt första kort
+                            DittKortID = slump.Next(0, 52);
+
+                            // Lägger till kortet i listan för dragna kort
+                            DragnaKort[0] = DittKortID;
+                            DinaKort[0] = värde[DittKortID];
+
+                            // Drar datorns första kort
+                            DatorKortID = slump.Next(0, 52);
+
+                            // Kollar listan för dragna kort
+                            while (DragnaKort.Contains(DatorKortID))
+                            {
+                                DatorKortID = slump.Next(0, 52);
+                            }
+
+                            // Bekräftar Kortet
+                            DragnaKort[1] = DatorKortID;
+                            DatornsKort[0] = värde[DatorKortID];
+                            Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})"); // {DragnaKort[0]}
+                            Thread.Sleep(250);
+                            Console.WriteLine($"- Datorn Drog: ?\n"); //{namn[DatorKortID]} ({värde[DatorKortID]}) {DragnaKort[1]}
+                            Thread.Sleep(250);
+
+                            // Drar ditt andra kort
+                            DittKortID = slump.Next(0, 52);
+
+                            // Kollar listan för dragna kort
+                            while (DragnaKort.Contains(DittKortID))
+                            {
+                                DittKortID = slump.Next(0, 52);
+                            }
+
+                            // Bekräftar Korter
+                            DragnaKort[2] = DittKortID;
+                            DinaKort[1] = värde[DittKortID];
+
+                            // Drar Datorns andra kort
+                            DatorKortID = slump.Next(0, 52);
+
+                            // Kollar listan för dragna kort
+                            while (DragnaKort.Contains(DatorKortID))
+                            {
+                                DatorKortID = slump.Next(0, 52);
+                            }
+
+                            // Bekräftar Kortet
+                            DragnaKort[3] = DatorKortID;
+                            DatornsKort[1] = värde[DatorKortID];
+
+                            Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})"); // {DragnaKort[2]}
+                            Thread.Sleep(250);
+                            Console.WriteLine($"- Datorn Drog: {namn[DatorKortID]} ({värde[DatorKortID]})\n"); // {DragnaKort[3]}
+                            Thread.Sleep(250);
+
+                            int DinSumma = DinaKort.Sum();
+                            int DatornsSumma = DatornsKort.Sum();
+                            bool DatorLoop = true;
+                            bool DinLoop = true;
+                            int AntalKortDragna = 4;
+                            int AntalDatorKort = 2;
+                            int AntalDinaKort = 2;
+                            bool DatorEss = false;
+                            bool DinEss = false;
+
+                            if (DatornsSumma == 21)
+                            {
+                                Console.WriteLine("Datorn fick 21! Du förlorade!\n");
+                                Igen = true;
+                                break;
+                            }
+
+                            while (DatorLoop == true)
+                            {
+                                switch (DatornsSumma)
+                                {
+                                    case > 21:
+                                        for (int i = 0; i < DatornsKort.Length; i++)
                                         {
-                                            DinaKort[i] = 1;
-                                            DinSumma = DinaKort.Sum();
-                                            DinEss = true;
-                                            break;
+                                            if (DatornsKort[i] == 11 && DatorEss == false)
+                                            {
+                                                DatornsKort[i] = 1;
+                                                DatornsSumma = DatornsKort.Sum();
+                                                DatorEss = true;
+                                                break;
+                                            }
                                         }
-                                    }
-                                    if (DinSumma > 21)
-                                    {
-                                        DinLoop = false;
-                                    }
-                                    break;
-                                case 21:
-                                    DinLoop = false;
-                                    break;
-                                case < 21:
-                                    while (DinSumma < 21)
-                                    {
-                                        Console.Write("Vill du dra ett till kort? (j/n): "); char[] val2 = Console.ReadLine().ToLower().ToCharArray();
-                                        Console.WriteLine();
-                                        if (val2[0] == 'j')
+                                        if (DatornsSumma > 21)
                                         {
-                                            // Drar ditt  nästa  kort
-                                            DittKortID = slump.Next(0, 52);
+                                            DatorLoop = false;
+                                        }
+                                        break;
+                                    case 21:
+                                        DatorLoop = false;
+                                        break;
+                                    case < 17:
+                                        while (DatornsSumma < 17)
+                                        {
+                                            // Drar datorns nästa  kort
+                                            DatorKortID = slump.Next(0, 52);
 
                                             // Kollar listan med dragna kort
-                                            while (DragnaKort.Contains(DittKortID))
+                                            while (DragnaKort.Contains(DatorKortID))
                                             {
-                                                DittKortID = slump.Next(0, 52);
+                                                DatorKortID = slump.Next(0, 52);
                                             }
 
                                             // Bekräftar kortet
-                                            DragnaKort[AntalKortDragna] = DittKortID;
-                                            DinaKort[AntalDinaKort] = värde[DittKortID];
-                                            Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})\n");
+                                            DragnaKort[AntalKortDragna] = DatorKortID;
+                                            DatornsKort[AntalDatorKort] = värde[DatorKortID];
 
                                             // Summerar
-                                            DinSumma = DinaKort.Sum();
-
-                                            if (DinSumma > 21)
-                                            {
-                                                for (int i = 0; i < DinaKort.Length; i++)
-                                                {
-                                                    if (DinaKort[i] == 11)
-                                                    {
-                                                        DinaKort[i] = 1;
-                                                        DinSumma = DinaKort.Sum();
-                                                        break;
-                                                    }
-                                                }
-                                            }
-
-                                            Console.WriteLine($"Dina poäng: {DinSumma}\n");
+                                            DatornsSumma = DatornsKort.Sum();
 
                                             AntalKortDragna++;
-                                            AntalDinaKort++;
-
+                                            AntalDatorKort++;
                                         }
-                                        else
+                                        break;
+                                    default:
+                                        DatorLoop = false;
+                                        break;
+                                }
+                            }
+
+                            Console.WriteLine($"Dina poäng: {DinSumma}\n");
+                            Thread.Sleep(250);
+
+                            while (DinLoop == true)
+                            {
+                                switch (DinSumma)
+                                {
+                                    case > 21:
+                                        for (int i = 0; i < DinaKort.Length; i++)
+                                        {
+                                            if (DinaKort[i] == 11 && DinEss == false)
+                                            {
+                                                DinaKort[i] = 1;
+                                                DinSumma = DinaKort.Sum();
+                                                DinEss = true;
+                                                break;
+                                            }
+                                        }
+                                        if (DinSumma > 21)
                                         {
                                             DinLoop = false;
-                                            break;
                                         }
-                                    }
-                                    break;
+                                        break;
+                                    case 21:
+                                        DinLoop = false;
+                                        break;
+                                    case < 21:
+                                        while (DinSumma < 21)
+                                        {
+                                            Console.Write("Vill du dra ett till kort? (j/n): "); char[] val2 = Console.ReadLine().ToLower().ToCharArray();
+                                            Console.WriteLine();
+                                            if (val2[0] == 'j')
+                                            {
+                                                // Drar ditt  nästa  kort
+                                                DittKortID = slump.Next(0, 52);
+
+                                                // Kollar listan med dragna kort
+                                                while (DragnaKort.Contains(DittKortID))
+                                                {
+                                                    DittKortID = slump.Next(0, 52);
+                                                }
+
+                                                // Bekräftar kortet
+                                                DragnaKort[AntalKortDragna] = DittKortID;
+                                                DinaKort[AntalDinaKort] = värde[DittKortID];
+                                                Console.WriteLine($"- Du drog: {namn[DittKortID]} ({värde[DittKortID]})\n");
+
+                                                // Summerar
+                                                DinSumma = DinaKort.Sum();
+
+                                                if (DinSumma > 21)
+                                                {
+                                                    for (int i = 0; i < DinaKort.Length; i++)
+                                                    {
+                                                        if (DinaKort[i] == 11)
+                                                        {
+                                                            DinaKort[i] = 1;
+                                                            DinSumma = DinaKort.Sum();
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+
+                                                Console.WriteLine($"Dina poäng: {DinSumma}\n");
+
+                                                AntalKortDragna++;
+                                                AntalDinaKort++;
+
+                                            }
+                                            else
+                                            {
+                                                DinLoop = false;
+                                                break;
+                                            }
+                                        }
+                                        break;
+                                }
                             }
-                        }
 
-                        if (DatornsSumma == 21)
-                        {
-                            Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Du förlorade!\n");
-                        }
-                        else if (DinSumma > 21)
-                        {
-                            Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom du överskred 21!\n");
-                        }
-                        else if (DatornsSumma > 21 && DinSumma <= 21)
-                        {
-                            Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!\n");
-                        }
-                        else if (DinSumma > DatornsSumma)
-                        {
-                            Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!\n");
-                        }
-                        else if (DinSumma < DatornsSumma)
-                        {
-                            Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade!\n");
-                        }
-                        else if (DatornsSumma == DinSumma)
-                        {
-                            Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom datorn vinner när det blir lika!\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Tyvärr, Du Förlorade!\n");
-                        }
+                            if (DatornsSumma == 21)
+                            {
+                                Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Du förlorade!\n");
+                            }
+                            else if (DinSumma > 21)
+                            {
+                                Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom du överskred 21!\n");
+                            }
+                            else if (DatornsSumma > 21 && DinSumma <= 21)
+                            {
+                                Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!\n");
+                            }
+                            else if (DinSumma > DatornsSumma)
+                            {
+                                Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!\n");
+                            }
+                            else if (DinSumma < DatornsSumma)
+                            {
+                                Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade!\n");
+                            }
+                            else if (DatornsSumma == DinSumma)
+                            {
+                                Console.WriteLine($"Datorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom datorn vinner när det blir lika!\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Tyvärr, Du Förlorade!\n");
+                            }
 
-                        Igen = true;
+                            Igen = true;
+                        }
                     }
                 }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Felaktig inmatning, försök igen.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
             }
         }
     }
