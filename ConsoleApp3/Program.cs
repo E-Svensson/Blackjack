@@ -21,8 +21,8 @@ namespace ____
             bool vinst = false;
             List<string> vinnare = new List<string>();
 
-            int DinSumma = 0;
-            int DatornsSumma = 0;
+            int DinSumma;
+            int DatornsSumma;
 
             int delay = 1000;
 
@@ -82,10 +82,6 @@ namespace ____
             List<int> Dinakort = new List<int>();
             List<int> Datornskort = new List<int>();
 
-            int[] DragnaKort = new int[52];
-            int[] DinaKort = new int[26];
-            int[] DatornsKort = new int[26];
-
             while (Avslut == false)
             {
                 try
@@ -137,13 +133,17 @@ namespace ____
                     {
                         Console.Clear();
                         Console.WriteLine("\n=== Regler: ===");
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("\n- I Blackjack är målet att nå 21 poäng genom att dra kort från en kortlek.");
                         Console.WriteLine("- Man drar automatiskt två kort och får sedan välja om man vill fortsätta dra kort eller inte.");
                         Console.WriteLine("- Hamnar man över 21 poäng förlorar man automatiskt.");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("\n=== Värden på korten: ===");
-                        Console.WriteLine("\n- Ess är värda 11 poäng men om du överskrider 21 poäng med ett ess på hand blir det esset värt 1. (Detta kan endast ske ett ess)");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("\n- Ess är värda 11 poäng förutom om du överskrider 21 poäng, då blir esset värt 1 poäng. (Detta kan endast ske ett ess)");
                         Console.WriteLine("- Kungar, drottningar och knäcktar är alla värda 10 poäng.");
                         Console.WriteLine("- Alla kort mellan 2-10 är värda lika mycket poäng som deras siffra.");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
 
                         Console.Write("\nSkriv här när du har läst klart: ");
                         Console.ForegroundColor = ConsoleColor.White;
@@ -156,13 +156,18 @@ namespace ____
                     {
                         Console.Clear();
                         Console.WriteLine("\n=== De senaste vinnarna ===");
-                        Console.WriteLine();
+
                         for (int i = 0; i < vinnare.Count; i++)
                         {
-                            Console.Write($"{i + 1}. ");
+                            Console.Write($"\n{i + 1}. ");
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine($"{vinnare[i]}");
                             Console.ForegroundColor = ConsoleColor.Yellow;
+                        }
+
+                        if (vinnare.Count > 0)
+                        {
+                            Console.WriteLine();
                         }
 
                         Console.Write("\nSkriv här när du har kollat klart: ");
