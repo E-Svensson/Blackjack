@@ -11,6 +11,7 @@ namespace ____
             bool Avslut = false;
             bool Regler = false;
             bool Vinnare = false;
+            bool Inställningar = false;
 
             bool DinEssSave = true;
             bool DatornsEssSave = true;
@@ -21,6 +22,10 @@ namespace ____
             bool vinst = false;
             List<string> vinnare = new List<string>();
 
+            int StartKort = 2;
+            int VinnarTal = 21;
+            int Kortlekar = 1;
+
             int DinSumma;
             int DatornsSumma;
 
@@ -30,8 +35,8 @@ namespace ____
             int Jack = 10;
             int Queen = 10;
             int King = 10;
-            int[] värde = new int[52];
-            string[] namn = new string[52];
+            int[] värde = new int[Kortlekar* 52];
+            string[] namn = new string[Kortlekar * 52];
 
             int[] Kort = { Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King };
             string[] KortStr = { "Ess", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Knäckt", "Drottning", "Kung", };
@@ -59,12 +64,15 @@ namespace ____
             // Färg[3] = Ruter
 
             // Ger alla kort sitt eget värde (ID)
-            for (int i = 0; i < Färg.Length; i++)
+            for (int k = 0; k < Kortlekar; k++)
             {
-                for (int j = 0; j < Kort.Length; j++)
+                for (int i = 0; i < Färg.Length; i++)
                 {
-                    värde[j + 13 * i] = Kort[j];
-                    namn[j + 13 * i] = $"{FärgStr[i]} {KortStr[j]}";
+                    for (int j = 0; j < Kort.Length; j++)
+                    {
+                        värde[(52 * k) + (j + 13 * i)] = Kort[j];
+                        namn[(52 * k) + (j + 13 * i)] = $"{FärgStr[i]} {KortStr[j]}";
+                    }
                 }
             }
 
@@ -82,7 +90,7 @@ namespace ____
             List<int> Dinakort = new List<int>();
             List<int> Datornskort = new List<int>();
 
-            while (Avslut == false)
+            while (!Avslut)
             {
                 try
                 {
@@ -91,25 +99,17 @@ namespace ____
                     Console.Clear();
                     Console.WriteLine("\n=== Välkommen till Blackjack! ===");
                     Console.Write("\n1. ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Spela spelet");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Spela spelet"); Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("2. ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Spelets regler");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Spelets regler"); Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("3. ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Kolla de senaste vinnarna");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Inställningar"); Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("4. ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Avsluta programmet");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("\nSkriv här: ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    int IntVal = int.Parse(Console.ReadLine());
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Kolla de senaste vinnarna"); Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("5. ");
+                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Avsluta programmet"); Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("\nSkriv här: "); 
+                    Console.ForegroundColor = ConsoleColor.White; int IntVal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
 
                     switch (IntVal)
                     {
@@ -120,13 +120,21 @@ namespace ____
                             Regler = true;
                             break;
                         case 3:
-                            Vinnare = true;
+                            Inställningar = true;
                             break;
                         case 4:
+                            Vinnare = true;
+                            break;
+                        case 5:
                             Avslut = true;
                             break;
                         default:
                             break;
+                    }
+
+                    if (Avslut)
+                    {
+                        break;
                     }
 
                     if (Regler)
@@ -177,6 +185,50 @@ namespace ____
                         Vinnare = false;
                     }
 
+                    while (Inställningar)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n=== Inställningar ===");
+                        Console.Write("\n1. Antal dragna kort i början: ");
+                        Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(StartKort); Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("2. Antal Kortlekar: ");
+                        Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(Kortlekar); Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("3. Vinnartal: ");
+                        Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(VinnarTal); Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        Console.Write("\nVill du ändra någon inställning? (j/n): ");
+                        Console.ForegroundColor = ConsoleColor.White; string Val = Console.ReadLine().ToLower(); Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        if (Val[0] == 'j')
+                        {
+                            Console.Write("\nVilken inställning vill du ändra?: ");
+                            Console.ForegroundColor = ConsoleColor.White; IntVal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
+ 
+                            switch (IntVal)
+                            {
+                                case 1:
+                                    Console.Write("\nSkriv det nya värdet: ");
+                                    Console.ForegroundColor = ConsoleColor.White; StartKort = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
+                                    break;
+                                case 2:
+                                    Console.Write("\nSkriv det nya värdet: ");
+                                    Console.ForegroundColor = ConsoleColor.White; Kortlekar = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
+                                    break;
+                                case 3:
+                                    Console.Write("\nSkriv det nya värdet: ");
+                                    Console.ForegroundColor = ConsoleColor.White; VinnarTal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Inställningar = false;
+                            break;
+                        }
+                    }
+
                     while (Spel)
                     {
                         Dragnakort.Clear();
@@ -186,29 +238,31 @@ namespace ____
                         Console.Clear();
                         Console.WriteLine();
 
-                        for (int i = 0; i < 4; i++) // Del 1
+                        for (int i = 0; i < StartKort * 2; i++) // Del 1
                         {
                             Thread.Sleep(delay);
 
-                            ID = slump.Next(0, 52); // Slumpar kort
+                            ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
 
                             while (Dragnakort.Contains(ID)) // Har kortet redan dragits?
                             {
-                                ID = slump.Next(0, 52); // Slumpar kort
+                                ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
                             }
 
                             Dragnakort.Add(ID); // Bekräftar kortet
 
                             switch (i) // Gömmer datorns första kort
                             {
-                                case 1:;
+                                case 1:
+                                    
                                     Console.Write($"- {Prefix[Toggle]} drog: ");
                                     Console.ForegroundColor = ConsoleColor.White;
                                     Console.WriteLine($"?");
                                     Console.ForegroundColor = ConsoleColor.Yellow;
 
                                     break;
-                                default:;
+                                default:
+                                    
                                     Console.Write($"- {Prefix[Toggle]} drog: ");
                                     Console.ForegroundColor = ConsoleColor.White;
                                     Console.WriteLine($"{namn[ID]} ({värde[ID]})");
@@ -235,14 +289,13 @@ namespace ____
 
                         Thread.Sleep(delay);
 
-                        if (DatornsSumma == 21)
+                        if (DatornsSumma == VinnarTal)
                         {
                             DinLoop = false;
                             DatorLoop = false;
                         }
-                        else if (DatornsSumma == 22)
+                        else if (DatornsSumma > VinnarTal)
                         {
-
                             Datornskort.Add(-10);
 
                             DatornsSumma = Datornskort.Sum(); // Summerar
@@ -250,7 +303,7 @@ namespace ____
                             Thread.Sleep(delay);
 
                             Console.ForegroundColor = ConsoleColor.DarkGray;
-                            Console.WriteLine($"\n(Datorn överskred 21 så dens ess är nu värd 1 poäng)");
+                            Console.WriteLine($"\n(Datorn överskred {VinnarTal} så dens ess är nu värd 1 poäng)");
                             Console.ForegroundColor = ConsoleColor.Yellow;
 
                             DatornsEssSave = false;
@@ -266,7 +319,7 @@ namespace ____
                         {
                             switch (DinSumma)
                             {
-                                case < 21:
+                                case var value when value < VinnarTal:
                                     Thread.Sleep(delay);
 
                                     Console.Write("\nVill du dra ett till kort (j/n)?: ");
@@ -279,11 +332,11 @@ namespace ____
                                         case 'j':
                                             Thread.Sleep(delay);
 
-                                            ID = slump.Next(0, 52); // Slumpar kort
+                                            ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
 
                                             while (Dragnakort.Contains(ID)) // Har kortet redan dragits?
                                             {
-                                                ID = slump.Next(0, 52); // Slumpar kort
+                                                ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
                                             }
 
                                             Dragnakort.Add(ID); // Bekräftar kortet
@@ -297,7 +350,7 @@ namespace ____
 
                                             DinSumma = Dinakort.Sum(); // Summerar
 
-                                            if (DinEssSave && DinSumma > 21 && Dinakort.Contains(11))
+                                            if (DinEssSave && DinSumma > VinnarTal && Dinakort.Contains(11))
                                             {
                                                 Dinakort.Add(-10);
 
@@ -306,7 +359,7 @@ namespace ____
                                                 Thread.Sleep(delay);
 
                                                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                                                Console.WriteLine("\n(Du överskred 21 så ditt ess är nu värd 1 poäng)");
+                                                Console.WriteLine($"\n(Du överskred {VinnarTal} så ditt ess är nu värd 1 poäng)");
                                                 Console.ForegroundColor = ConsoleColor.Yellow;
 
                                                 DinEssSave = false;
@@ -325,7 +378,7 @@ namespace ____
                                     }
 
                                     break;
-                                case > 20:
+                                case var value when value > VinnarTal - 1:
                                     DinLoop = false;
                                     break;
                             }
@@ -340,14 +393,14 @@ namespace ____
                         {
                             switch (DatornsSumma)
                             {
-                                case < 17:
+                                case var value when value < VinnarTal - 4:
                                     Thread.Sleep(delay);
 
-                                    ID = slump.Next(0, 52); // Slumpar kort
+                                    ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
 
                                     while (Dragnakort.Contains(ID)) // Har kortet redan dragits?
                                     {
-                                        ID = slump.Next(0, 52); // Slumpar kort
+                                        ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
                                     }
 
                                     Dragnakort.Add(ID); // Bekräftar kortet
@@ -358,15 +411,13 @@ namespace ____
                                     }
 
                                     Console.Write($"- {Prefix[Toggle]} drog: ");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.WriteLine($"{namn[ID]} ({värde[ID]})");
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine($"{namn[ID]} ({värde[ID]})"); Console.ForegroundColor = ConsoleColor.Yellow;
 
                                     Datornskort.Add(värde[ID]); // Datorns lista
 
                                     DatornsSumma = Datornskort.Sum();
 
-                                    if (DatornsEssSave && DatornsSumma > 21 && Datornskort.Contains(11))
+                                    if (DatornsEssSave && DatornsSumma > VinnarTal && Datornskort.Contains(11))
                                     {
                                         Datornskort.Add(-10);
 
@@ -375,7 +426,7 @@ namespace ____
                                         Thread.Sleep(delay);
 
                                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                                        Console.WriteLine($"\n(Datorn överskred 21 så dens ess är nu värd 1 poäng)");
+                                        Console.WriteLine($"\n(Datorn överskred {VinnarTal} så dens ess är nu värd 1 poäng)");
                                         Console.ForegroundColor = ConsoleColor.Yellow;
 
                                         DatornsEssSave = false;
@@ -406,17 +457,17 @@ namespace ____
 
                         Toggle ^= ToggleVärde; // Byter tur
 
-                        if (DatornsSumma == 21)
+                        if (DatornsSumma == VinnarTal)
                         {
                             Thread.Sleep(delay);
                             Console.WriteLine($"\nDatorn fick Blackjack så du förlorade! (Du fick {DinSumma})");
                         }
-                        else if (DinSumma > 21)
+                        else if (DinSumma > VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom du överskred 21!");
+                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom du överskred {VinnarTal}!");
                         }
-                        else if (DatornsSumma > 21 && DinSumma <= 21)
+                        else if (DatornsSumma > VinnarTal && DinSumma <= VinnarTal)
                         {
                             Thread.Sleep(delay);
                             Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!");
@@ -483,6 +534,7 @@ namespace ____
 
                     Spel = false;
                     Avslut = false;
+                    Inställningar = false;
                     Regler = false;
                     Vinnare = false;
 
