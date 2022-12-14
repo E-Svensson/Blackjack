@@ -19,7 +19,9 @@ namespace ____
             bool DatorLoop = true;
             bool DinLoop = true;
 
-            bool vinst = false;
+            bool vinst;
+            int vinstantal = 0;
+            string vinnarnamn = "Test";
             List<string> vinnare = new List<string>();
 
             int StartKort = 2;
@@ -35,7 +37,7 @@ namespace ____
             int Jack = 10;
             int Queen = 10;
             int King = 10;
-            int[] värde = new int[Kortlekar* 52];
+            int[] värde = new int[Kortlekar * 52];
             string[] namn = new string[Kortlekar * 52];
 
             int[] Kort = { Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King };
@@ -108,7 +110,7 @@ namespace ____
                     Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Kolla de senaste vinnarna"); Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("5. ");
                     Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Avsluta programmet"); Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("\nSkriv här: "); 
+                    Console.Write("\nSkriv här: ");
                     Console.ForegroundColor = ConsoleColor.White; int IntVal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
 
                     switch (IntVal)
@@ -203,7 +205,7 @@ namespace ____
                         {
                             Console.Write("\nVilken inställning vill du ändra?: ");
                             Console.ForegroundColor = ConsoleColor.White; IntVal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
- 
+
                             switch (IntVal)
                             {
                                 case 1:
@@ -240,7 +242,7 @@ namespace ____
 
                         for (int i = 0; i < StartKort * 2; i++) // Del 1
                         {
-                            Thread.Sleep(delay);
+                            Thread.Sleep(delay / 2);
 
                             ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
 
@@ -254,7 +256,7 @@ namespace ____
                             switch (i) // Gömmer datorns första kort
                             {
                                 case 1:
-                                    
+
                                     Console.Write($"- {Prefix[Toggle]} drog: ");
                                     Console.ForegroundColor = ConsoleColor.White;
                                     Console.WriteLine($"?");
@@ -262,7 +264,7 @@ namespace ____
 
                                     break;
                                 default:
-                                    
+
                                     Console.Write($"- {Prefix[Toggle]} drog: ");
                                     Console.ForegroundColor = ConsoleColor.White;
                                     Console.WriteLine($"{namn[ID]} ({värde[ID]})");
@@ -460,70 +462,124 @@ namespace ____
                         if (DatornsSumma == VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick Blackjack så du förlorade! (Du fick {DinSumma})");
+                            Console.Write($"\nDatorn fick Blackjack så du förlorade! ");
+                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"(Du fick {DinSumma})"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            vinst = false;
                         }
                         else if (DinSumma > VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom du överskred {VinnarTal}!");
+                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Tyvärr, du förlorade eftersom du överskred {VinnarTal}!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            vinst = false;
                         }
                         else if (DatornsSumma > VinnarTal && DinSumma <= VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!");
+                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"Grattis, du vann!"); Console.ForegroundColor = ConsoleColor.Yellow;
                             vinst = true;
                         }
                         else if (DinSumma > DatornsSumma)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Grattis, du vann!");
+                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"Grattis, du vann!"); Console.ForegroundColor = ConsoleColor.Yellow;
                             vinst = true;
                         }
                         else if (DinSumma < DatornsSumma)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade!");
+                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Tyvärr, du förlorade!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            vinst = false;
                         }
                         else if (DatornsSumma == DinSumma)
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! Tyvärr, du förlorade eftersom datorn vinner när det blir lika!");
+                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Tyvärr, du förlorade eftersom datorn vinner när det blir lika!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            vinst = false;
                         }
                         else
                         {
                             Thread.Sleep(delay);
                             Console.WriteLine("\nTyvärr, Du Förlorade!");
-                        }
-
-                        if (vinst)
-                        {
-                            Console.Write("\nSkriv ditt namn: ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            vinnare.Add(Console.ReadLine());
-                            Console.ForegroundColor = ConsoleColor.Yellow;
                             vinst = false;
                         }
 
-                        Thread.Sleep(delay);
-
-                        Console.Write("\nVill du köra igen? (j/n): ");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        string Val = Console.ReadLine().ToLower();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        switch (Val[0])
+                        if (vinst && vinstantal == 0)
                         {
-                            case 'j':
-                                break;
-                            default:
-                                Spel = false;
-                                break;
+                            Thread.Sleep(delay);
+
+                            Console.Write("\nSkriv ditt namn och starta din winstreak: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            vinnarnamn = Console.ReadLine();
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            vinstantal++;
+                        }
+                        else if (vinst && vinstantal > 0)
+                        {
+                            Thread.Sleep(delay);
+
+                            vinstantal++;
+                            Console.Write("\nDin winstreak är nu: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine(vinstantal);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+
+                            Console.Write("\nVill du fortsätta? (j/n): ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            string Val = Console.ReadLine().ToLower();
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+
+                            switch (Val[0])
+                            {
+                                case 'j':
+                                    break;
+                                default:
+                                    vinst = false;
+                                    break;
+                            }
+                        }
+                        else if (!vinst && vinstantal > 0)
+                        {
+                            Thread.Sleep(delay);
+
+                            Console.Write("\nDin slutgiltiga winstreak hamnade på: ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine(vinstantal);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            vinnare.Add($"{vinnarnamn} ({vinstantal})");
+                        }
+
+                        if (!vinst)
+                        {
+                            Thread.Sleep(delay);
+
+                            Console.Write("\nVill du köra igen? (j/n): ");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            string Val = Console.ReadLine().ToLower();
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+
+                            switch (Val[0])
+                            {
+                                case 'j':
+                                    break;
+                                default:
+                                    Spel = false;
+                                    break;
+                            }
                         }
 
                         Console.WriteLine();
 
                         DinLoop = true;
                         DatorLoop = true;
+
+                        Dragnakort.Clear();
+                        Dinakort.Clear();
+                        Datornskort.Clear();
                     }
 
                     Console.WriteLine();
@@ -547,9 +603,8 @@ namespace ____
                     Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Felaktig inmatning, försök igen.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                 }
-
             }
         }
     }
