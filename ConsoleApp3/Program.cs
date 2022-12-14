@@ -1,12 +1,48 @@
 using System;
 using System.Linq.Expressions;
 
-namespace ____
+namespace Blackuujackuu
 {
-    class Program
+    public class Program
     {
+        public string Delay(string text)
+        {
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(10);
+
+            }
+            return " ";
+        }
+        public string DelayLine(string text)
+        {
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(10);
+
+            }
+            Console.WriteLine();
+            return " ";
+        }
+        public string DelayLineWhite(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(10);
+
+            }
+            Console.ForegroundColor= ConsoleColor.Yellow;
+            Console.WriteLine();
+            return " ";
+        }
         static void Main(string[] args)
         {
+            var Program = new Program();
+
             bool Spel = false;
             bool Avslut = false;
             bool Regler = false;
@@ -99,18 +135,13 @@ namespace ____
                     Console.ForegroundColor = ConsoleColor.Yellow;
 
                     Console.Clear();
-                    Console.WriteLine("\n=== Välkommen till Blackjack! ===");
-                    Console.Write("\n1. ");
-                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Spela spelet"); Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("2. ");
-                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Spelets regler"); Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("3. ");
-                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Inställningar"); Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("4. ");
-                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Kolla de senaste vinnarna"); Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("5. ");
-                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine("Avsluta programmet"); Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("\nSkriv här: ");
+                    Program.DelayLine("=== Välkommen till Blackjack! ===");
+                    Program.Delay("\n1. "); Program.DelayLineWhite("Spela spelet");
+                    Program.Delay("2. "); Program.DelayLineWhite("Spelets regler");
+                    Program.Delay("3. "); Program.DelayLineWhite("Inställningar");
+                    Program.Delay("4. "); Program.DelayLineWhite("Kolla de senaste vinnarna");
+                    Program.Delay("5. "); Program.DelayLineWhite("Avsluta programmet");
+                    Program.Delay("\nSkriv här: ");
                     Console.ForegroundColor = ConsoleColor.White; int IntVal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
 
                     switch (IntVal)
