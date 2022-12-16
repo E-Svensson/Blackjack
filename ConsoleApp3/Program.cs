@@ -9,9 +9,7 @@ namespace Blackuujackuu
         {
             foreach (char c in text)
             {
-                Console.Write(c);
-                Thread.Sleep(10);
-
+                Console.Write(c); Thread.Sleep(1);
             }
             return " ";
         }
@@ -19,9 +17,7 @@ namespace Blackuujackuu
         {
             foreach (char c in text)
             {
-                Console.Write(c);
-                Thread.Sleep(10);
-
+                Console.Write(c); Thread.Sleep(1);
             }
             Console.WriteLine();
             return " ";
@@ -31,11 +27,42 @@ namespace Blackuujackuu
             Console.ForegroundColor = ConsoleColor.White;
             foreach (char c in text)
             {
-                Console.Write(c);
-                Thread.Sleep(10);
-
+                Console.Write(c); Thread.Sleep(1);
             }
-            Console.ForegroundColor= ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine();
+            return " ";
+        }
+        public string DelayLineGray(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            foreach (char c in text)
+            {
+                Console.Write(c); Thread.Sleep(1);
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine();
+            return " ";
+        }
+        public string DelayLineRed(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            foreach (char c in text)
+            {
+                Console.Write(c); Thread.Sleep(1);
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine();
+            return " ";
+        }
+        public string DelayLineGreen(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            foreach (char c in text)
+            {
+                Console.Write(c); Thread.Sleep(1);
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine();
             return " ";
         }
@@ -167,88 +194,71 @@ namespace Blackuujackuu
 
                     if (Avslut)
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         break;
                     }
 
                     if (Regler)
                     {
                         Console.Clear();
-                        Console.WriteLine("\n=== Regler: ===");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("\n- I Blackjack är målet att nå 21 poäng genom att dra kort från en kortlek.");
-                        Console.WriteLine("- Man drar automatiskt två kort och får sedan välja om man vill fortsätta dra kort eller inte.");
-                        Console.WriteLine("- Hamnar man över 21 poäng förlorar man automatiskt.");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("\n=== Värden på korten: ===");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("\n- Ess är värda 11 poäng förutom om du överskrider 21 poäng, då blir esset värt 1 poäng. (Detta kan endast ske ett ess)");
-                        Console.WriteLine("- Kungar, drottningar och knäcktar är alla värda 10 poäng.");
-                        Console.WriteLine("- Alla kort mellan 2-10 är värda lika mycket poäng som deras siffra.");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Program.DelayLine("=== Regler: ===");
+                        Program.DelayLineWhite("\n- I Blackjack är målet att nå 21 poäng genom att dra kort från en kortlek.");
+                        Program.DelayLineWhite("- Man drar automatiskt två kort och får sedan välja om man vill fortsätta dra kort eller inte.");
+                        Program.DelayLineWhite("- Hamnar man över 21 poäng förlorar man automatiskt.");
+                        Program.DelayLine("\n=== Värden på korten: ===");
+                        Program.DelayLineWhite("\n- Ess är värda 11 poäng förutom om du överskrider 21 poäng, då blir esset värt 1 poäng. (Detta kan endast ske ett ess)");
+                        Program.DelayLineWhite("- Kungar, drottningar och knäcktar är alla värda 10 poäng.");
+                        Program.DelayLineWhite("- Alla kort mellan 2-10 är värda lika mycket poäng som deras siffra.");
 
-                        Console.Write("\nSkriv här när du har läst klart: ");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Program.Delay("\nSkriv här när du har läst klart: ");
+                        Console.ForegroundColor = ConsoleColor.White; Console.ReadLine(); Console.ForegroundColor = ConsoleColor.Yellow;
                         Regler = false;
                     }
 
                     if (Vinnare)
                     {
                         Console.Clear();
-                        Console.WriteLine("\n=== De senaste vinnarna ===");
+                        Program.DelayLine("=== De senaste vinnarna ===");
 
                         for (int i = 0; i < vinnare.Count; i++)
                         {
-                            Console.Write($"\n{i + 1}. ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.WriteLine($"{vinnare[i]}");
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\n{i + 1}. ");
+                            Program.DelayLineWhite($"{vinnare[i]}");
                         }
 
-                        if (vinnare.Count > 0)
-                        {
-                            Console.WriteLine();
-                        }
-
-                        Console.Write("\nSkriv här när du har kollat klart: ");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Program.Delay("\nSkriv här när du har kollat klart: ");
+                        Console.ForegroundColor = ConsoleColor.White; Console.ReadLine(); Console.ForegroundColor = ConsoleColor.Yellow;
                         Vinnare = false;
                     }
 
                     while (Inställningar)
                     {
                         Console.Clear();
-                        Console.WriteLine("\n=== Inställningar ===");
-                        Console.Write("\n1. Antal dragna kort i början: ");
-                        Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(StartKort); Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("2. Antal Kortlekar: ");
-                        Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(Kortlekar); Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("3. Vinnartal: ");
-                        Console.ForegroundColor = ConsoleColor.White; Console.WriteLine(VinnarTal); Console.ForegroundColor = ConsoleColor.Yellow;
+                        Program.DelayLine("=== Inställningar ===");
+                        Program.Delay("\n1. Antal dragna kort i början: "); Program.DelayLineWhite($"{StartKort}");
+                        Program.Delay("2. Antal Kortlekar: "); Program.DelayLineWhite($"{Kortlekar}");
+                        Program.Delay("3. Vinnartal: "); Program.DelayLineWhite($"{VinnarTal}");
 
-                        Console.Write("\nVill du ändra någon inställning? (j/n): ");
+                        Program.Delay("\nVill du ändra någon inställning? (j/n): ");
                         Console.ForegroundColor = ConsoleColor.White; string Val = Console.ReadLine().ToLower(); Console.ForegroundColor = ConsoleColor.Yellow;
 
                         if (Val[0] == 'j')
                         {
-                            Console.Write("\nVilken inställning vill du ändra?: ");
+                            Program.Delay("\nVilken inställning vill du ändra?: ");
                             Console.ForegroundColor = ConsoleColor.White; IntVal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
 
                             switch (IntVal)
                             {
                                 case 1:
-                                    Console.Write("\nSkriv det nya värdet: ");
+                                    Program.Delay("\nSkriv det nya värdet: ");
                                     Console.ForegroundColor = ConsoleColor.White; StartKort = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
                                     break;
                                 case 2:
-                                    Console.Write("\nSkriv det nya värdet: ");
+                                    Program.Delay("\nSkriv det nya värdet: ");
                                     Console.ForegroundColor = ConsoleColor.White; Kortlekar = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
                                     break;
                                 case 3:
-                                    Console.Write("\nSkriv det nya värdet: ");
+                                    Program.Delay("\nSkriv det nya värdet: ");
                                     Console.ForegroundColor = ConsoleColor.White; VinnarTal = int.Parse(Console.ReadLine()); Console.ForegroundColor = ConsoleColor.Yellow;
                                     break;
                                 default:
@@ -287,20 +297,12 @@ namespace Blackuujackuu
                             switch (i) // Gömmer datorns första kort
                             {
                                 case 1:
-
-                                    Console.Write($"- {Prefix[Toggle]} drog: ");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.WriteLine($"?");
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-
+                                    Program.Delay($"- {Prefix[Toggle]} drog: ");
+                                    Program.DelayLineWhite($"?");
                                     break;
                                 default:
-
-                                    Console.Write($"- {Prefix[Toggle]} drog: ");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.WriteLine($"{namn[ID]} ({värde[ID]})");
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-
+                                    Program.Delay($"- {Prefix[Toggle]} drog: ");
+                                    Program.DelayLineWhite($"{namn[ID]} ({värde[ID]})");
                                     break;
                             }
 
@@ -335,17 +337,13 @@ namespace Blackuujackuu
 
                             Thread.Sleep(delay);
 
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                            Console.WriteLine($"\n(Datorn överskred {VinnarTal} så dens ess är nu värd 1 poäng)");
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.DelayLineGray($"\n(Datorn överskred {VinnarTal} så dens ess är nu värd 1 poäng)");
 
                             DatornsEssSave = false;
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                            Console.WriteLine($"\n(Du har {DinSumma} poäng)");
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.DelayLineGray($"\n(Du har {DinSumma} poäng)");
                         }
 
                         while (DinLoop)
@@ -355,10 +353,8 @@ namespace Blackuujackuu
                                 case var value when value < VinnarTal:
                                     Thread.Sleep(delay);
 
-                                    Console.Write("\nVill du dra ett till kort (j/n)?: ");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    string StringVal = Console.ReadLine().ToLower();
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Program.Delay("\nVill du dra ett till kort (j/n)?: ");
+                                    Console.ForegroundColor = ConsoleColor.White; string StringVal = Console.ReadLine().ToLower(); Console.ForegroundColor = ConsoleColor.Yellow;
 
                                     switch (StringVal[0])
                                     {
@@ -374,10 +370,8 @@ namespace Blackuujackuu
 
                                             Dragnakort.Add(ID); // Bekräftar kortet
 
-                                            Console.Write($"\n- {Prefix[Toggle]} drog: ");
-                                            Console.ForegroundColor = ConsoleColor.White;
-                                            Console.WriteLine($"{namn[ID]} ({värde[ID]})");
-                                            Console.ForegroundColor = ConsoleColor.Yellow;
+                                            Program.Delay($"\n- {Prefix[Toggle]} drog: ");
+                                            Program.DelayLineWhite($"{namn[ID]} ({värde[ID]})");
 
                                             Dinakort.Add(värde[ID]); // Spelarens lista
 
@@ -391,18 +385,14 @@ namespace Blackuujackuu
 
                                                 Thread.Sleep(delay);
 
-                                                Console.ForegroundColor = ConsoleColor.DarkGray;
-                                                Console.WriteLine($"\n(Du överskred {VinnarTal} så ditt ess är nu värd 1 poäng)");
-                                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                                Program.DelayLineGray($"\n(Du överskred {VinnarTal} så ditt ess är nu värd 1 poäng)");
 
                                                 DinEssSave = false;
                                             }
 
                                             Thread.Sleep(delay);
 
-                                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                                            Console.WriteLine($"\n(Du har nu {DinSumma} poäng)");
-                                            Console.ForegroundColor = ConsoleColor.Yellow;
+                                            Program.DelayLineGray($"\n(Du har nu {DinSumma} poäng)");
 
                                             break;
                                         default:
@@ -413,6 +403,7 @@ namespace Blackuujackuu
                                     break;
                                 case var value when value > VinnarTal - 1:
                                     DinLoop = false;
+                                    DatorLoop = false;
                                     break;
                             }
 
@@ -427,6 +418,7 @@ namespace Blackuujackuu
                             switch (DatornsSumma)
                             {
                                 case var value when value < VinnarTal - 4:
+
                                     Thread.Sleep(delay);
 
                                     ID = slump.Next(0, 52 * Kortlekar); // Slumpar kort
@@ -443,8 +435,8 @@ namespace Blackuujackuu
                                         Console.WriteLine();
                                     }
 
-                                    Console.Write($"- {Prefix[Toggle]} drog: ");
-                                    Console.ForegroundColor = ConsoleColor.White; Console.WriteLine($"{namn[ID]} ({värde[ID]})"); Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Program.Delay($"- {Prefix[Toggle]} drog: ");
+                                    Program.DelayLineWhite($"{namn[ID]} ({värde[ID]})");
 
                                     Datornskort.Add(värde[ID]); // Datorns lista
 
@@ -458,9 +450,7 @@ namespace Blackuujackuu
 
                                         Thread.Sleep(delay);
 
-                                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                                        Console.WriteLine($"\n(Datorn överskred {VinnarTal} så dens ess är nu värd 1 poäng)");
-                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Program.DelayLineGray($"\n(Datorn överskred {VinnarTal} så dens ess är nu värd 1 poäng)");
 
                                         DatornsEssSave = false;
                                     }
@@ -469,18 +459,17 @@ namespace Blackuujackuu
 
                                     break;
                                 default:
+
                                     Thread.Sleep(delay);
 
-                                    Console.ForegroundColor = ConsoleColor.DarkGray;
                                     if (datordrog)
                                     {
-                                        Console.WriteLine("\n(Datorn drar inga fler kort)");
+                                        Program.DelayLineGray("\n(Datorn drar inga fler kort)");
                                     }
                                     else
                                     {
-                                        Console.WriteLine("\n(Datorn drar inga kort)");
+                                        Program.DelayLineGray("\n(Datorn drar inga kort)");
                                     }
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
 
                                     DatorLoop = false;
 
@@ -493,49 +482,49 @@ namespace Blackuujackuu
                         if (DatornsSumma == VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.Write($"\nDatorn fick Blackjack så du förlorade! ");
-                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"(Du fick {DinSumma})"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\nDatorn fick Blackjack så du förlorade! ");
+                            Program.DelayLineRed($"(Du fick {DinSumma})");
                             vinst = false;
                         }
                         else if (DinSumma > VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
-                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Tyvärr, du förlorade eftersom du överskred {VinnarTal}!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Program.DelayLineRed($"Tyvärr, du förlorade eftersom du överskred {VinnarTal}!");
                             vinst = false;
                         }
                         else if (DatornsSumma > VinnarTal && DinSumma <= VinnarTal)
                         {
                             Thread.Sleep(delay);
-                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
-                            Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"Grattis, du vann!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Program.DelayLineGreen($"Grattis, du vann!");
                             vinst = true;
                         }
                         else if (DinSumma > DatornsSumma)
                         {
                             Thread.Sleep(delay);
-                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
-                            Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"Grattis, du vann!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Program.DelayLineGreen($"Grattis, du vann!");
                             vinst = true;
                         }
                         else if (DinSumma < DatornsSumma)
                         {
                             Thread.Sleep(delay);
-                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
-                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Tyvärr, du förlorade!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Program.DelayLineRed($"Tyvärr, du förlorade!");
                             vinst = false;
                         }
                         else if (DatornsSumma == DinSumma)
                         {
                             Thread.Sleep(delay);
-                            Console.Write($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
-                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine($"Tyvärr, du förlorade eftersom datorn vinner när det blir lika!"); Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay($"\nDatorn fick {DatornsSumma} och du fick {DinSumma}! ");
+                            Program.DelayLineRed($"Tyvärr, du förlorade eftersom datorn vinner när det blir lika!");
                             vinst = false;
                         }
                         else
                         {
                             Thread.Sleep(delay);
-                            Console.WriteLine("\nTyvärr, Du Förlorade!");
+                            Program.DelayLineRed("\nTyvärr, Du Förlorade!");
                             vinst = false;
                         }
 
@@ -543,10 +532,8 @@ namespace Blackuujackuu
                         {
                             Thread.Sleep(delay);
 
-                            Console.Write("\nSkriv ditt namn och starta din winstreak: ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            vinnarnamn = Console.ReadLine();
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay("\nSkriv ditt namn och starta din winstreak: ");
+                            Console.ForegroundColor = ConsoleColor.White; vinnarnamn = Console.ReadLine(); Console.ForegroundColor = ConsoleColor.Yellow;
                             vinstantal++;
                         }
                         else if (vinst && vinstantal > 0)
@@ -554,15 +541,11 @@ namespace Blackuujackuu
                             Thread.Sleep(delay);
 
                             vinstantal++;
-                            Console.Write("\nDin winstreak är nu: ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.WriteLine(vinstantal);
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay("\nDin winstreak är nu: ");
+                            Program.DelayLineGreen($"{vinstantal}");
 
-                            Console.Write("\nVill du fortsätta? (j/n): ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            string Val = Console.ReadLine().ToLower();
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay("\nVill du fortsätta? (j/n): ");
+                            Console.ForegroundColor = ConsoleColor.White; string Val = Console.ReadLine().ToLower(); Console.ForegroundColor = ConsoleColor.Yellow;
 
                             switch (Val[0])
                             {
@@ -577,10 +560,8 @@ namespace Blackuujackuu
                         {
                             Thread.Sleep(delay);
 
-                            Console.Write("\nDin slutgiltiga winstreak hamnade på: ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.WriteLine(vinstantal);
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay("\nDin slutgiltiga winstreak hamnade på: ");
+                            Program.DelayLineGreen($"{vinstantal}");
                             vinnare.Add($"{vinnarnamn} ({vinstantal})");
                         }
 
@@ -588,10 +569,8 @@ namespace Blackuujackuu
                         {
                             Thread.Sleep(delay);
 
-                            Console.Write("\nVill du köra igen? (j/n): ");
-                            Console.ForegroundColor = ConsoleColor.White;
-                            string Val = Console.ReadLine().ToLower();
-                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Program.Delay("\nVill du köra igen? (j/n): ");
+                            Console.ForegroundColor = ConsoleColor.White; string Val = Console.ReadLine().ToLower(); Console.ForegroundColor = ConsoleColor.Yellow;
 
                             switch (Val[0])
                             {
@@ -632,9 +611,7 @@ namespace Blackuujackuu
                 {
                     Console.Clear();
                     Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Felaktig inmatning, försök igen.");
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Program.DelayLineRed("Felaktig inmatning, försök igen.");
                 }
             }
         }
